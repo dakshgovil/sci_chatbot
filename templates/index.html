@@ -174,7 +174,7 @@ How may I assist you today?
 
   <!-- Floating Chat Icon Button -->
   <button id="floating-chat-button" class="floating-chat-button" onclick="toggleChatbot()">
-    <img src="/static/chat_icon.png" alt="Chat Icon">
+    <img src="chat_icon.png" alt="Chat Icon">
   </button>
 
 <script>
@@ -199,10 +199,33 @@ How may I assist you today?
 
   // Function to find URLs in text and wrap them in <a> tags
   function formatMessage(text) {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    return text.replace(urlRegex, '<a href="$&" target="_blank" class="text-blue-600 underline hover:text-blue-800 break-all">$1</a>');
+    // Split text into segments separated by URLs
+    const segments = text.split(/(https?:\/\/[^\s]+)/g);
+    
+    let formattedMessage = '';
+    
+    segments.forEach((segment, index) => {
+        if (segment.match(/^https?:\/\/[^\s]+$/)) {
+            // It's a URL - create a button
+            formattedMessage += `
+                <div class="w-full mt-2 mb-3">
+                    <button onclick="window.open('${segment}', '_blank')" 
+                            class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md text-sm transition-colors">
+                        Click Here
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                    </button>
+                </div>
+            `;
+        } else if (segment.trim()) {
+            // It's regular text - add it as a paragraph
+            formattedMessage += `<p class="mb-2 last:mb-0">${segment}</p>`;
+        }
+    });
+    
+    return formattedMessage;
   }
-
   // Function to send user message to the backend and display bot response
   async function sendMessage() {
     const message = userInput.value.trim();
@@ -251,23 +274,27 @@ How may I assist you today?
   }
 
   // Function to append bot messages to the chat container
-  function appendBotMessage(message, isError = false) {
-    const bgColor = isError ? 'bg-red-500' : 'bg-[#eaeef0]'; // Red background for errors
-    const textColor = isError ? 'text-white' : 'text-[#111518]'; // White text for errors
+  // Replace the existing appendBotMessage function with this version
+function appendBotMessage(message, isError = false) {
+    const bgColor = isError ? 'bg-red-500' : 'bg-[#eaeef0]';
+    const textColor = isError ? 'text-white' : 'text-[#111518]';
     const botMessageHtml = `
       <div class="flex items-end gap-3 p-4">
-        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" style='background-image: url('/static/SCI_logo.png');'></div>
+        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" 
+             style='background-image: url("SCI_logo.png");'></div>
         <div class="flex flex-1 flex-col gap-1 items-start">
           <p class="text-[#5e7687] text-[13px] font-normal">SCI Assistant</p>
-          <p class="text-base font-normal leading-normal flex max-w-[360px] rounded-xl px-4 py-3 ${bgColor} ${textColor} break-words">
-            ${message}
-          </p>
+          <div class="text-base font-normal leading-normal max-w-[360px] rounded-xl px-4 py-3 ${bgColor} ${textColor} w-full">
+            <div class="inline-block w-full">
+              ${message}
+            </div>
+          </div>
         </div>
       </div>
     `;
-    chatContainer.insertAdjacentHTML('beforeend', botMessageHtml); // Add message to chat
-    scrollToBottom(); // Scroll to the latest message
-  }
+    chatContainer.insertAdjacentHTML('beforeend', botMessageHtml);
+    scrollToBottom();
+}
 
   // Function to scroll the chat area to the bottom
   function scrollToBottom() {
