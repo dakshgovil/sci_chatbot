@@ -174,7 +174,7 @@ How may I assist you today?
 
   <!-- Floating Chat Icon Button -->
   <button id="floating-chat-button" class="floating-chat-button" onclick="toggleChatbot()">
-    <img src="chat_icon.png" alt="Chat Icon">
+    <img src="/static/chat_icon.png" alt="Chat Icon">
   </button>
 
 <script>
@@ -256,7 +256,7 @@ How may I assist you today?
     const textColor = isError ? 'text-white' : 'text-[#111518]'; // White text for errors
     const botMessageHtml = `
       <div class="flex items-end gap-3 p-4">
-        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" style='background-image: url("SCI_logo.png");'></div>
+        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" style='background-image: url('/static/SCI_logo.png');'></div>
         <div class="flex flex-1 flex-col gap-1 items-start">
           <p class="text-[#5e7687] text-[13px] font-normal">SCI Assistant</p>
           <p class="text-base font-normal leading-normal flex max-w-[360px] rounded-xl px-4 py-3 ${bgColor} ${textColor} break-words">
