@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+  <link
+    rel="stylesheet"
+    as="style"
+    onload="this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&family=Public+Sans%3Awght%40400%3B500%3B700%3B900"
+  />
+  <title>SCI Assistant Chatbot</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <style>
+    /* Custom CSS for the background image with opacity */
+    .full-screen-container {
+      position: relative; /* Needed for absolute positioning of pseudo-element */
+      z-index: 1; /* Ensure content is above the background */
+    }
+
+    .full-screen-container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('SCI_logo.png'); /* Ensure this path is correct */
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 50%; /* Adjust as needed, e.g., 'contain', 'cover' */
+      background-attachment: fixed; /* Keeps background fixed during scroll */
+      opacity: 0.1; /* Adjust opacity (0.0 to 1.0) for desired subtlety */
+      z-index: -1; /* Place behind other content */
+    }
+
+    /* Styles for the chatbot interface container */
+    .chatbot-interface-container {
+      position: fixed; /* Fixed position to float over content */
+      bottom: 20px; /* Distance from bottom */
+      right: 20px; /* Distance from right */
+      width: 400px; /* Fixed width for the chatbot window */
+      height: 600px; /* Fixed height for the chatbot window */
+      background-color: #fff; /* White background for the chat window */
+      border-radius: 1rem; /* Rounded corners */
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Soft shadow */
+      overflow: hidden; /* Hide overflow content */
+      display: flex; /* Use flexbox for internal layout */
+      flex-direction: column; /* Stack children vertically */
+      z-index: 1000; /* Ensure it's on top of other content */
+      transition: all 0.3s ease-in-out; /* Smooth transition for showing/hiding */
+    }
+
+    /* Adjust chat container for the new fixed window size */
+    #chat-scroll-area {
+      flex-grow: 1; /* Allow chat area to take available space */
+      overflow-y: auto; /* Enable scrolling for chat messages */
+      padding: 1rem; /* Add padding inside the chat area */
+    }
+
+    #chat-container {
+      width: 100%; /* Make chat container fill its parent */
+      max-width: none; /* Remove max-width constraint */
+      margin: 0; /* Remove auto margins */
+    }
+
+    #input-area {
+      padding: 1rem; /* Add padding around the input area */
+      border-top: 1px solid #eaeef0; /* Border above input */
+    }
+
+    #input-area > div {
+      width: 100%; /* Make input area fill its parent */
+      max-width: none; /* Remove max-width constraint */
+      margin: 0; /* Remove auto margins */
+    }
+
+    /* Floating button styles */
+    .floating-chat-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #1F3EBE; /* Blue background */
+      border-radius: 9999px; /* Fully rounded */
+      padding: 0.75rem; /* Padding inside button */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); /* Shadow for pop effect */
+      cursor: pointer;
+      z-index: 1001; /* Above chatbot interface */
+      transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+    }
+
+    .floating-chat-button:hover {
+      transform: scale(1.05); /* Slightly enlarge on hover */
+    }
+
+    .floating-chat-button img {
+      width: 40px; /* Icon size */
+      height: 40px; /* Icon size */
+      display: block; /* Remove extra space below image */
+    }
+  </style>
+</head>
+<body>
+  <!-- Main container for the entire page, with SCI logo as background -->
+  <div class="relative flex size-full min-h-screen flex-col bg-gray-50 group/design-root full-screen-container" style='font-family: "Public Sans", "Noto Sans", sans-serif;'>
+
+    <!-- The actual chatbot interface, initially hidden -->
+    <div id="chatbot-interface" class="chatbot-interface-container hidden">
+
+      <!-- Header Section: Displays "SCI Support" text and user portrait -->
+      <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#eaeef0] px-4 py-3 bg-gray-50 z-10 rounded-t-xl">
+        <div class="flex items-center gap-2 text-[#111518]">
+            <h2 class="text-[#111518] text-lg font-bold leading-tight tracking-[-0.015em]">SCI Assistant</h2>
+        </div>
+        <div class="flex flex-1 justify-end gap-4">
+          <!-- User portrait/icon -->
+          <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8" style='background-image: url("");'></div>
+          <!-- Close button for the chatbot interface -->
+          <button onclick="toggleChatbot()" class="text-[#5e7687] hover:text-[#111518] focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256">
+              <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Chat Scroll Area: Main content area -->
+      <div id="chat-scroll-area" class="flex-1 overflow-y-auto">
+        <div id="chat-container" class="layout-content-container flex flex-col">
+          <!-- Initial bot message -->
+          <div class="flex items-end gap-3 p-4">
+            <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" style='background-image: url("SCI_logo.png");'></div>
+            <div class="flex flex-1 flex-col gap-1 items-start">
+              <p class="text-[#5e7687] text-[13px] font-normal leading-normal">SCI Assistant</p>
+              <p class="text-base font-normal leading-normal flex max-w-[360px] rounded-xl px-4 py-3 bg-[#eaeef0] text-[#111518]">
+                Hello! I'm SCI's Virtual Assistant. 
+I can help you explore services, track shipments, check schedules, and more.
+How may I assist you today?
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Area: Contains the text input and send button -->
+      <div id="input-area" class="px-4 py-3 bg-gray-50 border-t border-solid border-t-[#eaeef0] rounded-b-xl">
+        <div class="w-full">
+            <label class="flex flex-col min-w-40 h-12 flex-1">
+              <div class="flex w-full flex-1 items-stretch rounded-xl h-full">
+                <input
+                  id="user-input"
+                  placeholder="Type your message..."
+                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#111518] focus:outline-0 focus:ring-0 border-none bg-[#eaeef0] focus:border-none h-full placeholder:text-[#5e7687] px-4 rounded-r-none border-r-0 pr-2 text-base font-normal leading-normal"
+                />
+                <div class="flex border-none bg-[#eaeef0] items-center justify-center pr-4 rounded-r-xl border-l-0 !pr-2">
+                  <div class="flex items-center gap-4 justify-end">
+                    <button
+                      onclick="sendMessage()"
+                      class="min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-8 px-4 bg-[#b8d2e4] text-[#111518] text-sm font-medium leading-normal"
+                    >
+                      <span class="truncate">Send</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Floating Chat Icon Button -->
+  <button id="floating-chat-button" class="floating-chat-button" onclick="toggleChatbot()">
+    <img src="chat_icon.png" alt="Chat Icon">
+  </button>
+
+<script>
+  const userInput = document.getElementById('user-input');
+  const chatContainer = document.getElementById('chat-container');
+  const chatScrollArea = document.getElementById('chat-scroll-area');
+  const chatbotInterface = document.getElementById('chatbot-interface');
+  const floatingChatButton = document.getElementById('floating-chat-button');
+
+  // Function to toggle chatbot interface visibility
+  function toggleChatbot() {
+    chatbotInterface.classList.toggle('hidden'); // Toggle hidden class
+    floatingChatButton.classList.toggle('hidden'); // Hide the floating button when chat is open
+  }
+
+  // Event listener for Enter key to send message
+  userInput.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      sendMessage();
+    }
+  });
+
+  // Function to find URLs in text and wrap them in <a> tags
+  function formatMessage(text) {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    return text.replace(urlRegex, '<a href="$&" target="_blank" class="text-blue-600 underline hover:text-blue-800 break-all">$1</a>');
+  }
+
+  // Function to send user message to the backend and display bot response
+  async function sendMessage() {
+    const message = userInput.value.trim();
+    if (!message) return; // Do nothing if message is empty
+
+    appendUserMessage(message); // Display user message immediately
+    userInput.value = ''; // Clear input field
+
+    try {
+      // Fetch response from Flask backend
+      const response = await fetch("http://127.0.0.1:5000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const formattedResponse = formatMessage(data.response); // Format the response for links
+      appendBotMessage(formattedResponse); // Display bot's formatted response
+
+    } catch (error) {
+      console.error("Error:", error);
+      appendBotMessage("Sorry, I'm having trouble connecting. Please try again later.", true); // Display error message
+    }
+  }
+
+  // Function to append user messages to the chat container
+  function appendUserMessage(message) {
+    const userMessageHtml = `
+      <div class="flex items-end gap-3 p-4 flex-row-reverse">
+        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" style='background-image: url("https://source.unsplash.com/random/100x100/?person");'></div>
+        <div class="flex flex-1 flex-col gap-1 items-end">
+          <p class="text-[#5e7687] text-[13px] font-normal">You</p>
+          <p class="text-base font-normal leading-normal flex max-w-[360px] rounded-xl px-4 py-3 bg-blue-500 text-white break-words">
+            ${message}
+          </p>
+        </div>
+      </div>
+    `;
+    chatContainer.insertAdjacentHTML('beforeend', userMessageHtml); // Add message to chat
+    scrollToBottom(); // Scroll to the latest message
+  }
+
+  // Function to append bot messages to the chat container
+  function appendBotMessage(message, isError = false) {
+    const bgColor = isError ? 'bg-red-500' : 'bg-[#eaeef0]'; // Red background for errors
+    const textColor = isError ? 'text-white' : 'text-[#111518]'; // White text for errors
+    const botMessageHtml = `
+      <div class="flex items-end gap-3 p-4">
+        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-10 shrink-0" style='background-image: url("SCI_logo.png");'></div>
+        <div class="flex flex-1 flex-col gap-1 items-start">
+          <p class="text-[#5e7687] text-[13px] font-normal">SCI Assistant</p>
+          <p class="text-base font-normal leading-normal flex max-w-[360px] rounded-xl px-4 py-3 ${bgColor} ${textColor} break-words">
+            ${message}
+          </p>
+        </div>
+      </div>
+    `;
+    chatContainer.insertAdjacentHTML('beforeend', botMessageHtml); // Add message to chat
+    scrollToBottom(); // Scroll to the latest message
+  }
+
+  // Function to scroll the chat area to the bottom
+  function scrollToBottom() {
+    chatScrollArea.scrollTop = chatScrollArea.scrollHeight;
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,522 @@
+{
+  "intents": [
+    {
+      "tag": "Greeting",
+      "patterns": [
+        "Hello",
+        "Hi",
+        "Hey",
+        "Good morning",
+        "Good afternoon",
+        "Good evening",
+        "What's up?",
+        "Is anyone there?",
+        "Hey there",
+        "Hi SCI"
+      ],
+      "responses": [
+        "Hello! How can I assist you with SCI services today?",
+        "Hi there! What would you like to know about SCI?",
+        "Greetings! How can I help you with Shipping Corporation of India?",
+        "Welcome! I'm here to answer your questions about SCI."
+      ]
+    },
+    {
+      "tag": "Services",
+      "patterns": [
+        "What services are available at SCI?",
+        "Can you list SCI services?",
+        "Show me SCI’s service offerings",
+        "Services provided by Shipping Corporation of India?",
+        "Which shipping services does SCI offer?"
+      ],
+      "responses": [
+        "SCI provides a range of services, including Tankers, Bulk Carriers, Container, Offshore, Break Bulk, Coastal & Passenger Services, and Chartering. You may request additional information regarding any of the aforementioned services."
+      ]
+    },
+    {
+      "tag": "Tankers",
+      "patterns": [
+        "What kind of tankers does SCI have?",
+        "Give me info about SCI's tankers",
+        "Types of tankers operated by SCI?",
+        "SCI crude or product tankers info",
+        "Does SCI use specialized tankers?"
+      ],
+      "responses": [
+        " SCI offers three types of tankers: Product, Crude, and Specialized Vessels. For detailed information, please refer to the https://www.shipindia.com/services/servicedetails/tankers "
+      ]
+    },
+    {
+      "tag": "Bulk_Carriers",
+      "patterns": [
+        "SCI bulk cargo services?",
+        "Tell me about bulk shipping at SCI",
+        "What are SCI bulk vessel specs?",
+        "How many types of bulk carriers are there in SCI?",
+        "Bulk carrier capacity in SCI fleet?"
+      ],
+      "responses": [
+        " SCI is the leading Bulk Carrier operator in India, managing 15 vessels of Handymax, Supramax, Panamax, and Kamsarmax sizes, averaging 9 years in age (8-10 years range), designed for India centric trade with global cross-trading capability for diverse cargo like iron ore and coal. For detailed information, please refer to the https://www.shipindia.com/services/servicedetails/bulk-carriers"
+      ]
+    },
+    {
+      "tag": "Container",
+      "patterns": [
+        "SCI container logistics?",
+        "What containers services are provided?",
+        "SCI container operations?",
+        "Details about container shipping by SCI",
+        "Containerized transport at SCI?"
+      ],
+      "responses": [
+        "SCI offers two main types of container services Coastal Services and Overseas Services.You may request additional information regarding any of the aforementioned services."
+      ]
+    },
+    {
+      "tag": "Coastal_Container",
+      "patterns": [
+        "SCI domestic container services?",
+        "What is included in coastal container shipping?",
+        "Can SCI ship between Indian ports?",
+        "Domestic coastal container routes?",
+        "SCI coastal cargo info?"
+      ],
+      "responses": [
+        "SCI provides high-quality domestic coastal shipping services that connect key Indian ports, supporting the Government of India’s Sagarmala initiative. For detailed information, please refer to the https://www.shipindia.com/services/servicepage/sci-middle-east-india-liner-express-service"
+      ]
+    },
+    {
+      "tag": "Overseas_Container",
+      "patterns": [
+        "Tell me about SCI international container routes",
+        "Overseas container logistics SCI?",
+        "Container shipping outside India?",
+        "Does SCI do global container shipping?",
+        "International freight by SCI?"
+      ],
+      "responses": [
+        "SCI also offers extensive international container services with global reach through direct calls, slot sharing, and charter arrangements. For detailed information, please refer to the https://www.shipindia.com/services/servicepage/indian-subcontinent-europe "
+      ]
+    },
+    {
+      "tag": "Offshore",
+      "patterns": [
+        "SCI services for offshore drilling?",
+        "What offshore vessels does SCI use?",
+        "Marine support for oil fields?",
+        "SCI and offshore oil transport?",
+        "Oil exploration support SCI?"
+      ],
+      "responses": [
+        "SCI provides vital marine logistics support to the Indian oil industry for offshore exploration and operations. To check offshore vessel availability, please refer to the https://www.shipindia.com/services/servicepage/vessel-availability "
+      ]
+    },
+    {
+      "tag": "Break_Bulk",
+      "patterns": [
+        "Overdimensional freight SCI?",
+        "SCI for heavy equipment shipping?",
+        "Can SCI move break-bulk cargo?",
+        "Heavy lift overseas transport SCI?",
+        "Break-bulk shipping options?"
+      ],
+      "responses": [
+        " SCI is the only Indian shipping company offering overseas Liner Break-bulk services for import and export of over-dimensional, heavy lift, and containerized cargo worldwide. For detailed information, please refer the https://www.shipindia.com/services/servicedetails/break-bulk "
+      ]
+    },
+    {
+      "tag": "Coastal_Passenger",
+      "patterns": [
+        "SCI ferry services to islands?",
+        "Booking travel to Andaman with SCI?",
+        "SCI passenger service details?",
+        "Travel services provided by SCI?",
+        "Is there a passenger route by SCI?"
+      ],
+      "responses": [
+        " SCI operates domestic coastal shipping services on behalf of the Government of India, connecting key Indian ports.For detailed information, please refer the https://www.shipindia.com/services/servicedetails/overview-coastal-passenger-services. Passenger and cargo tickets for travel to and from the Andaman & Nicobar Islands are booked by the Andaman & Nicobar Administration, with details available on the A&N website: https://www.andaman.gov.in/ "
+      ]
+    },
+    {
+      "tag": "Chartering",
+      "patterns": [
+        "How do I charter a vessel through SCI?",
+        "SCI vessel leasing?",
+        "Chartering procedure at SCI?",
+        "SCI ship rental info?",
+        "Hire a ship from SCI?"
+      ],
+      "responses": [
+        " SCI's Chartering Department manages in/out chartering of all types of vessels, ensuring efficient vessel procurement through established broking channels and procedures. For detailed information, please refer the https://www.shipindia.com/services/servicedetails/chartering "
+      ]
+    },
+    {
+      "tag": "Shipbuilding_Consultancy",
+      "patterns": [
+        "SCI support for building ships?",
+        "Ship design consulting SCI?",
+        "Shipbuilding advisory SCI?",
+        "SCI new ship projects?",
+        "SCI design & engineering help?"
+      ],
+      "responses": [
+        " SCI offers end-to-end technical consultancy for shipbuilding and vessel acquisition, supporting government and institutional clients with expert guidance on feasibility, design, project execution, and delivery. For detailed information, please refer the https://www.shipindia.com/services/servicedetails/shipbuilding-consultancy "
+      ]
+    },
+    {
+      "tag": "Vessel_Schedule",
+      "patterns": [
+        "Shipping departure schedule?",
+        "SCI vessel timings?",
+        "When is the next SCI vessel?",
+        "SCI ship movement plan?",
+        "Where can I see shipping calendar?"
+      ],
+      "responses": [
+        "SCI’s Vessel Schedule solution is designed to meet future logistics needs by enabling users to efficiently search and track cargo movement through intuitive selection of loading and discharge ports, along with preferred date or week range. For detailed information, please refer the https://www.shipindia.com/frontcontroller/vessel_schedule"
+      ]
+    },
+    {
+      "tag": "Tracking",
+      "patterns": [
+        "How can I track a shipment?",
+        "Is there a way to trace my cargo?",
+        "SCI shipment status check",
+        "Where is my cargo now?",
+        "Track freight on SCI"
+      ],
+      "responses": [
+        " SCI provides various tracking facilities for Container Track, Bill of Lading, Booking Reference No. and Bill Tracking. You may request additional information regarding any of the aforementioned tracking."
+      ]
+    },
+    {
+      "tag": "Container_Tracking",
+      "patterns": [
+        "Where is my SCI container?",
+        "How do I trace my container?",
+        "SCI container tracking info?",
+        "Container shipment status SCI?",
+        "Real-time container track SCI?"
+      ],
+      "responses": [
+        "You can track your container here: https://www.shipindia.com/frontcontroller/track_trace"
+      ]
+    },
+    {
+      "tag": "Bill_of_Lading_Tracking",
+      "patterns": [
+        "Locate bill of lading status",
+        "BOL number tracking SCI",
+        "SCI BOL update?",
+        "Where is my BOL?",
+        "BOL status inquiry SCI?"
+      ],
+      "responses": [
+        "Track your Bill of Lading here: https://www.shipindia.com/frontcontroller/track_trace"
+      ]
+    },
+    {
+      "tag": "Bill_Tracking",
+      "patterns": [
+        "Where can I see my SCI invoice?",
+        "Invoice tracking SCI?",
+        "Vendor bill lookup SCI?",
+        "Check SCI billing details",
+        "SCI invoice status"
+      ],
+      "responses": [
+        "Track your bills effortlessly by entering the Vendor Number, SCI Reference Number, or Purchase Order Number. For detailed information, please refer the https://www.shipindia.com/frontcontroller/bill_trace "
+      ]
+    },
+    {
+      "tag": "Booking_Reference_Tracking",
+      "patterns": [
+        "Booking reference search SCI?",
+        "Where's my booking update?",
+        "Track by booking ID SCI",
+        "SCI reservation number track",
+        "Shipping booking check"
+      ],
+      "responses": [
+        "Use your Booking Reference Number to track here: https://www.shipindia.com/frontcontroller/track_trace"
+      ]
+    },
+    {
+      "tag": "Tariff",
+      "patterns": [
+        "What are SCI freight rates?",
+        "Tariff list SCI?",
+        "SCI pricing details",
+        "SCI cargo charges?",
+        "Fees for SCI shipping?"
+      ],
+      "responses": [
+        " SCI offers three easily accessible tariff options:- Detention/Demurrage Tariff, Terminal Handling Charges (THC) and Chennai Import Charges. You may request additional information regarding any of the aforementioned tariffs."
+      ]
+    },
+    {
+      "tag": "Detention_Demurrage_Tariff",
+      "patterns": [
+        "SCI late cargo fees?",
+        "Charges for extra container time?",
+        "Demurrage tariff info SCI?",
+        "SCI fee for container delay?",
+        "SCI import detention rate"
+      ],
+      "responses": [
+        "Check import/export tariffs and charges by selecting your sector and region, please refer the https://www.shipindia.com/services/servicesubpage/detention-demurrage-tariff/8 "
+      ]
+    },
+    {
+      "tag": "THC",
+      "patterns": [
+        "Terminal fees SCI?",
+        "Handling charges at port SCI?",
+        "SCI THC breakdown?",
+        "Port THC details SCI?",
+        "What does SCI charge for THC?"
+      ],
+      "responses": [
+        "Terminal Handling Charges info: https://www.shipindia.com/services/servicesubpage/thc/8"
+      ]
+    },
+    {
+      "tag": "Chennai_Import_Charges",
+      "patterns": [
+        "SCI fees at Chennai port?",
+        "Chennai customs charges?",
+        "Import tariffs in Chennai?",
+        "SCI Chennai charges breakdown?",
+        "What are SCI import rates in Chennai?"
+      ],
+      "responses": [
+        "Chennai import charges: https://www.shipindia.com/services/servicepage/chennai-import-charges"
+      ]
+    },
+    {
+      "tag": "Agency_Network",
+      "patterns": [
+        "Where are SCI agents located?",
+        "SCI office locations?",
+        "Agent contact list SCI?",
+        "SCI agency partners?",
+        "Find SCI agencies?"
+      ],
+      "responses": [
+        "SCI's agency network: https://www.shipindia.com/frontcontroller/agency_network"
+      ]
+    },
+    {
+      "tag": "Subsidiaries",
+      "patterns": [
+        "SCI company divisions?",
+        "SCI group companies?",
+        "Who owns ICSL?",
+        "SCI subsidiaries breakdown?",
+        "SCI associated companies?"
+      ],
+      "responses": [
+        "SCI maintains two subsidiaries, namely Inland & Coastal Shipping Ltd. (ICSL) and SCI's Bharat IFSC Limited. You may request additional information regarding any of the aforementioned Subsidiaries."
+      ]
+    },
+    {
+      "tag": "Inland_Coastal_Shipping_Ltd",
+      "patterns": [
+        "ICSL operations?",
+        "What does ICSL do?",
+        "ICSL services under SCI?",
+        "Is ICSL a SCI company?",
+        "ICSL business areas?"
+      ],
+      "responses": [
+        " Inland & Coastal Shipping Ltd. (ICSL), a wholly owned subsidiary of SCI to provide transportation services through inland waterways, coastal shipping, and end-to-end logistics. For detailed information, please refer the https://www.shipindia.com/page/icsl_page "
+      ]
+    },
+    {
+      "tag": "SCI_Bharat_IFSC_Limited",
+      "patterns": [
+        "Bharat IFSC operations?",
+        "SCI financial unit?",
+        "SCI Bharat subsidiary services?",
+        "What is SCI Bharat IFSC Ltd.?",
+        "Is IFSC part of SCI?"
+      ],
+      "responses": [
+        "SCI's Bharat IFSC Limited, a subsidiary of The Shipping Corporation of India Ltd., operates as a Government of India enterprise focused on providing specialized financial and shipping-related services. For detailed information, please refer the https://www.shipindia.com/page/sci_bharat_ifsc_limited/ "
+      ]
+    },
+    {
+      "tag": "Career",
+      "patterns": [
+        "How can I work for SCI?",
+        "Job openings in SCI?",
+        "SCI hiring right now?",
+        "Are there vacancies in SCI?",
+        "Join SCI career opportunities"
+      ],
+      "responses": [
+        "The Shipping Corporation of India Ltd. (SCI) offers career opportunities for Shore Personnel and Fleet Personnel. You may request additional information regarding any of the aforementioned career options."
+      ]
+    },
+    {
+      "tag": "Fleet_Personnel",
+      "patterns": [
+        "SCI Fleet_Personnel",
+        "SCI seafarer vacancies?",
+        "Fleet crew hiring SCI?",
+        "SCI officer recruitment?",
+        "SCI marine staff openings?",
+        "SCI merchant navy jobs"
+      ],
+      "responses": [
+        "For Fleet Personnel careers and results, visit: https://www.shipindia.com/frontcontroller/fleet_personnel and https://www.shipindia.com/frontcontroller/fleetresult"
+      ]
+    },
+    {
+      "tag": "Shore_Personnel",
+      "patterns": [
+        "SCI Shore_Personnel",
+        "SCI office jobs?",
+        "SCI desk-based careers?",
+        "Administrative roles in SCI?",
+        "SCI back office jobs?",
+        "SCI HR openings?"
+      ],
+      "responses": [
+        "For Shore Personnel jobs and information, visit: https://www.shipindia.com/frontcontroller/shore_growth_story"
+      ]
+    },
+    {
+      "tag": "Tenders",
+      "patterns": [
+        "Open contracts SCI?",
+        "Where to find SCI procurement info?",
+        "SCI active tenders list?",
+        "SCI RFQ portal?",
+        "Government tenders by SCI?"
+      ],
+      "responses": [
+        "The Shipping Corporation of India Ltd. (SCI) provides detailed information on procurement activities for various departments, including Purchase & Services, Services Contracts Cell, and Insurance Cell. For detailed information, please refer the https://www.shipindia.com/frontcontroller/tenderpage/overview "
+      ]
+    },
+    {
+      "tag": "Contact_Us",
+      "patterns": [
+        "SCI customer service contact?",
+        "Email address for SCI?",
+        "SCI helpdesk phone?",
+        "SCI Mumbai office info?",
+        "Reach out to SCI"
+      ],
+      "responses": [
+        " The Shipping Corporation of India Ltd.(SCI) provides comprehensive contact details for its Corporate Office located at Shipping House, 245 Madame Cama Road, Mumbai - 400021, along with phone number 022-22026666, and includes sections for Human Resources, Finance Division, Purchase & Stores, Information Technology, Vigilance, Bulk Carriers & Tankers, Technical & Offshore, Liner & Passenger Services, Maritime Training Institute, Regional Offices, and WIM Details. For detailed information, please refer the https://www.shipindia.com/page/contact/b-t "
+      ]
+    },
+    {
+      "tag": "Investors",
+      "patterns": [
+        "SCI stockholder info?",
+        "SCI investor section?",
+        "Annual reports SCI?",
+        "SCI dividend update?",
+        "Financial documents SCI?"
+      ],
+      "responses": [
+        "The Shipping Corporation of India Ltd. (SCI) offers detailed information under the Scheme of Arrangement for Demerger, including sections for Information for Shareholders, AGM, Postal Ballot, Unclaimed Shares/Dividend, Downloads, Company Secretary, and Registrars, as well as disclosures under Regulation 46 and Investor Relations. For detailed information, please refer the https://www.shipindia.com/investors/scheme_of_arrangement_for_demerger"
+      ]
+    },
+    {
+      "tag": "Vendor",
+      "patterns": [
+        "SCI vendor portal?",
+        "Approved vendors SCI?",
+        "How to register as SCI vendor?",
+        "SCI supplier application?",
+        "Vendor eligibility SCI?"
+      ],
+      "responses": [
+        " The Shipping Corporation of India Ltd. (SCI) provides options for vendor registration and a list of banned vendors. For detailed information, please refer the https://www.shipindia.com/banvendor/banvendorpage/banreg "
+      ]
+    },
+    {
+      "tag": "RTI",
+      "patterns": [
+        "Request info from SCI?",
+        "SCI RTI submission guide?",
+        "Filing RTI SCI?",
+        "RTI officer SCI?",
+        "Public info SCI RTI"
+      ],
+      "responses": [
+        "The Shipping Corporation of India Ltd. (SCI) provides access to information under the RTI Act, 2005, enabling citizens to seek details about its operations and services. For detailed information, please refer the https://www.shipindia.com/rti/rtipage/rti-act-2005 "
+      ]
+    },
+    {
+      "tag": "CSR",
+      "patterns": [
+        "SCI donation programs?",
+        "SCI social welfare actions?",
+        "CSR report SCI?",
+        "SCI environmental work?",
+        "SCI community work?"
+      ],
+      "responses": [
+        " SCI demonstrates its commitment to social responsibility through impactful CSR initiatives aligned with the Companies Act, 2013, focusing on sustainable development and community welfare. For detailed information, please refer the https://www.shipindia.com/csr/csrpage/overview. Details of CSR Committee Members are available on https://www.shipindia.com/page/committees "
+      ]
+    },
+    {
+      "tag": "Financial_Results",
+      "patterns": [
+        "SCI balance sheet?",
+        "SCI profits this year?",
+        "SCI revenue report?",
+        "SCI yearly performance?",
+        "SCI earnings call?"
+      ],
+      "responses": [
+        "Access the latest financial performance and annual reports of The Shipping Corporation of India Ltd., a Government of India enterprise committed to excellence in maritime services. For detailed information, please refer the https://www.shipindia.com/investors/quarterlyresults "
+      ]
+    },
+    {
+      "tag": "Social_Media",
+      "patterns": [
+        "SCI on Instagram?",
+        "Official SCI LinkedIn?",
+        "Where can I follow SCI news?",
+        "SCI Twitter profile?",
+        "Social platforms SCI uses?"
+      ],
+      "responses": [
+        "Stay connected with SCI! Follow us on our social media platforms for the latest updates, news and insights.Facebook: https://www.facebook.com/shippingcorpindia Twitter/X: https://x.com/shippingcorp Instagram: https://www.instagram.com/shippingcorpindia/ Linked In: https://www.linkedin.com/company/shippingcorpindia/"
+      ]
+    },
+    {
+      "tag": "Goodbye",
+      "patterns": [
+        "Bye",
+        "Goodbye",
+        "See you",
+        "Catch you later",
+        "Talk to you later",
+        "I'm done",
+        "That's all for now",
+        "Thanks, bye",
+        "Exit",
+        "Quit"
+      ],
+      "responses": [
+        "Goodbye! Feel free to reach out anytime.",
+        "See you soon! Have a great day.",
+        "Bye! Let me know if you need anything else."
+      ]
+    },
+    {
+      "tag": "Fallback",
+      "patterns": [],
+      "responses": [
+        "I'm sorry, I didn't understand that. Please try asking about SCI services, careers, or visit https://www.shipindia.com"
+      ]
+    }
+  ]
+}
