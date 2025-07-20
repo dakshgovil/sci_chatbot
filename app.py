@@ -35,6 +35,11 @@ def create_app():
     @app.route("/")
     def home():
         return render_template("index.html")
+    
+    # Health check endpoint for Render monitoring
+    @app.route("/health")
+    def health_check():
+        return jsonify({"status": "healthy", "message": "SCI Chatbot is operational"}), 200
 
     @app.route("/chat", methods=["POST"])
     def chat():
@@ -56,6 +61,9 @@ def create_app():
 
     return app
 
+# Application entry point
+application = create_app()
+
 if __name__ == "__main__":
-    app = create_app()
-    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+    port = int(os.environ.get("PORT", 5000))
+    application.run(host='0.0.0.0', port=port)
