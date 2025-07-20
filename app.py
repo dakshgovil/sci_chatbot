@@ -15,19 +15,18 @@ def create_app():
     # Configure file paths
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     INTENT_FILE = os.path.join(BASE_DIR, "intentg.json")
-    MODEL_FILE = os.path.join(BASE_DIR, "chatbot_model.pth")
-    DIMENSIONS_FILE = os.path.join(BASE_DIR, "dimensions.json")
+    MODEL_FILE = os.path.join(BASE_DIR, "chatbot_model.pth")  # Only model file now
 
     # Initialize chatbot assistant with error handling
     try:
         assistant = ChatbotAssistant(INTENT_FILE)
-        assistant.parse_intents()
-        assistant.prepare_data()
         
-        if not all(os.path.exists(f) for f in [MODEL_FILE, DIMENSIONS_FILE]):
-            raise FileNotFoundError("Model files missing. Please train the model first.")
+        # Check if model file exists
+        if not os.path.exists(MODEL_FILE):
+            raise FileNotFoundError("Model file missing. Please train the model first.")
             
-        assistant.load_model(MODEL_FILE, DIMENSIONS_FILE)
+        # Load model with metadata (single file now)
+        assistant.load_model(MODEL_FILE)
     except Exception as e:
         print(f"Error initializing chatbot: {str(e)}")
         assistant = None
@@ -56,8 +55,8 @@ def create_app():
             return jsonify({"response": response})
 
         except Exception as e:
-            print(f"Error processing message: {str(e)}")
-            return jsonify({"response": "Sorry, I encountered an error processing your request."}), 500
+            app.logger.error(f"Chat error: {str(e)}")  # Add this line
+            return jsonify({"response": "Sorry, I encountered an error..."}), 500
 
     return app
 

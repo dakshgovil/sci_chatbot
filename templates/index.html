@@ -229,14 +229,14 @@ How may I assist you today?
   // Function to send user message to the backend and display bot response
   async function sendMessage() {
     const message = userInput.value.trim();
-    if (!message) return; // Do nothing if message is empty
+    if (!message) return;
 
-    appendUserMessage(message); // Display user message immediately
-    userInput.value = ''; // Clear input field
+    appendUserMessage(message);
+    userInput.value = '';
 
     try {
-      // Fetch response from Flask backend
-      const response = await fetch("https://sci-chatbot-1.onrender.com/chat", {
+      // Change to relative path: "/chat" instead of full URL
+      const response = await fetch("/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message })
