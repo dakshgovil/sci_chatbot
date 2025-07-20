@@ -27,7 +27,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: url('SCI_logo.png'); /* Ensure this path is correct */
+      background-image: url('/static/SCI_logo.png'); /* Ensure this path is correct */
       background-repeat: no-repeat;
       background-position: center;
       background-size: 50%; /* Adjust as needed, e.g., 'contain', 'cover' */
@@ -236,7 +236,7 @@ How may I assist you today?
 
     try {
       // Fetch response from Flask backend
-      const response = await fetch("http://127.0.0.1:5000/chat", {
+      const response = await fetch("https://sci-chatbot-1.onrender.com/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message })
