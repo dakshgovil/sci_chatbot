@@ -11,6 +11,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from fuzzywuzzy import fuzz
 nltk.download('punkt_tab')   
 nltk.download('wordnet')  
+
 # Class Definition
 class ChatbotModel(nn.Module):
     def __init__(self, input_size, output_size):
@@ -55,7 +56,7 @@ class ChatbotAssistant:
 
     def parse_intents(self):
         lemmatizer = nltk.WordNetLemmatizer()
-      
+
         if os.path.exists(self.intents_path):
             with open(self.intents_path, "r") as f:
                 intents_data = json.load(f)
@@ -78,7 +79,7 @@ class ChatbotAssistant:
     def prepare_data(self):
         if not self.documents:
             raise ValueError("No documents parsed. Check intent file and parsing.")
-            
+
         bags = []
         indices = []
         for document in self.documents:
@@ -94,7 +95,7 @@ class ChatbotAssistant:
     def train_model(self, batch_size, lr, epochs):
         if self.X is None or self.X.size == 0:
             raise ValueError("Training data is empty. Check data preparation.")
-            
+
         X_tensor = torch.tensor(self.X, dtype=torch.float32)
         y_tensor = torch.tensor(self.y, dtype=torch.long)
 
@@ -115,11 +116,10 @@ class ChatbotAssistant:
                 loss.backward()
                 optimizer.step()
                 running_loss += loss.item()
-            
+
             print(f"Epoch {epoch+1}/{epochs}: Loss: {running_loss/len(loader):.4f}")
 
     def save_model(self, model_path):
-        """Save model with all required metadata in a single file"""
         checkpoint = {
             'model_state_dict': self.model.state_dict(),
             'vocabulary': self.vocabulary,
@@ -132,27 +132,19 @@ class ChatbotAssistant:
         torch.save(checkpoint, model_path)
 
     def load_model(self, model_path):
-        """Load model with all metadata from a single file"""
         checkpoint = torch.load(model_path)
-        
-        # Recreate model with saved dimensions
-        self.model = ChatbotModel(
-            checkpoint['input_size'], 
-            checkpoint['output_size']
-        )
+        self.model = ChatbotModel(checkpoint['input_size'], checkpoint['output_size'])
         self.model.load_state_dict(checkpoint['model_state_dict'])
         self.model.eval()
-        
-        # Restore vocabulary and intent data
         self.vocabulary = checkpoint['vocabulary']
         self.intents = checkpoint['intents']
         self.intents_responses = checkpoint['intents_responses']
         self.intent_patterns = checkpoint['intent_patterns']
 
-    def process_message(self, input_message, threshold=0.65, fuzzy_threshold=80):
+    def process_message(self, input_message, threshold=0.85, fuzzy_threshold=85):
         if not self.model:
             raise RuntimeError("Model not loaded. Load model before processing.")
-            
+
         words = self.tokenize_and_lemmatize(input_message)
         bag = self.bag_of_words(words)
         bag_tensor = torch.tensor([bag], dtype=torch.float32)
@@ -165,8 +157,11 @@ class ChatbotAssistant:
             confidence = confidence.item()
             predicted_idx = predicted_idx.item()
 
-        if confidence < threshold:
-            # Fuzzy matching fallback
+        predicted_intent = None
+
+        if confidence >= threshold:
+            predicted_intent = self.intents[predicted_idx]
+        else:
             best_match = None
             best_score = 0
             for tag, patterns in self.intent_patterns.items():
@@ -180,8 +175,6 @@ class ChatbotAssistant:
                 predicted_intent = best_match
             else:
                 predicted_intent = "Fallback"
-        else:
-            predicted_intent = self.intents[predicted_idx]
 
         if self.function_mappings and predicted_intent in self.function_mappings:
             self.function_mappings[predicted_intent]()
@@ -194,45 +187,38 @@ class ChatbotAssistant:
         )
 
 if __name__ == "__main__":
-    # Use the actual intent file
     INTENT_FILE = "intentg.json"
-    
-    # Verify intent file exists
+
     if not os.path.exists(INTENT_FILE):
         print(f"Error: Intent file '{INTENT_FILE}' not found in directory:")
         print(os.listdir())
         exit(1)
 
     assistant = ChatbotAssistant(INTENT_FILE)
-    
+
     try:
         print("Parsing intents...")
         assistant.parse_intents()
-        
+
         print("Preparing data...")
         assistant.prepare_data()
-        
-        # Print dataset stats
+
         print(f"Loaded dataset: {len(assistant.documents)} examples, {len(assistant.intents)} intents")
         print(f"Vocabulary size: {len(assistant.vocabulary)} words")
-        
-        # Training parameters
+
         batch_size = 8
         lr = 0.005
         epochs = 140
-        
+
         print("\nTraining model...")
         assistant.train_model(batch_size, lr, epochs)
-        
-        # Save model with all metadata
+
         print("\nSaving model...")
         assistant.save_model("chatbot_model.pth")
-        
-        # Reload model to verify
+
         print("\nReloading model...")
         assistant.load_model("chatbot_model.pth")
-        
-        # Start chat session
+
         print("""
         \nChatbot Ready!
         Hello! I'm SCI's Virtual Assistant. 
@@ -240,14 +226,14 @@ if __name__ == "__main__":
         How may I assist you today?
         (Type 'quit' to exit)
         """)
-        
+
         while True:
             message = input("You: ")
             if message.lower() in ["quit", "exit", "bye"]:
                 break
             response = assistant.process_message(message)
             print("Bot:", response)
-            
+
     except Exception as e:
         print(f"\nError: {str(e)}")
         print("Check your intent file and data paths")
