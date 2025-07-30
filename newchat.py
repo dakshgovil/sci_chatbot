@@ -141,7 +141,7 @@ class ChatbotAssistant:
         self.intents_responses = checkpoint['intents_responses']
         self.intent_patterns = checkpoint['intent_patterns']
 
-    def process_message(self, input_message, threshold=0.85, fuzzy_threshold=85):
+    def process_message(self, input_message, threshold=0.75, fuzzy_threshold=70):
         if not self.model:
             raise RuntimeError("Model not loaded. Load model before processing.")
 
